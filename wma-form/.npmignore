@@ -1,0 +1,66 @@
+# Source files
+src/
+.storybook/
+*.stories.tsx
+*.stories.ts
+
+# Development files
+jest.config.js
+rollup.config.mjs
+rollup.config.js
+tsconfig.json
+.eslintrc*
+.prettierrc*
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Storybook build
+storybook-static/
+

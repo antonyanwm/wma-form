@@ -1,0 +1,111 @@
+/* WMA Component Library Base Styles */
+
+/* Reset and base styles */
+* {
+	box-sizing: border-box;
+}
+
+/* Icon component styles */
+.icon {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Text component styles */
+.wma-text {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+
+.wma-text--primary {
+	color: #333;
+}
+
+.wma-text--secondary {
+	color: #666;
+}
+
+.wma-text--muted {
+	color: #999;
+}
+
+.wma-text--error {
+	color: #e74c3c;
+}
+
+.wma-text--success {
+	color: #27ae60;
+}
+
+.wma-text--warning {
+	color: #f39c12;
+}
+
+/* Size variants */
+.wma-text--xs {
+	font-size: 0.75rem;
+}
+
+.wma-text--sm {
+	font-size: 0.875rem;
+}
+
+.wma-text--base {
+	font-size: 1rem;
+}
+
+.wma-text--lg {
+	font-size: 1.125rem;
+}
+
+.wma-text--xl {
+	font-size: 1.25rem;
+}
+
+.wma-text--2xl {
+	font-size: 1.5rem;
+}
+
+.wma-text--3xl {
+	font-size: 1.875rem;
+}
+
+/* Weight variants */
+.wma-text--light {
+	font-weight: 300;
+}
+
+.wma-text--normal {
+	font-weight: 400;
+}
+
+.wma-text--medium {
+	font-weight: 500;
+}
+
+.wma-text--semibold {
+	font-weight: 600;
+}
+
+.wma-text--bold {
+	font-weight: 700;
+}
+
+/* Utility classes */
+.wma-text--truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wma-text--break-words {
+	word-wrap: break-word;
+	word-break: break-word;
+}

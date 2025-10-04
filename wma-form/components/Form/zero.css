@@ -1,0 +1,281 @@
+/* Reset all form elements and inputs to ensure consistent styling across browsers */
+
+/* Basic reset for all form elements */
+input,
+textarea,
+select,
+button {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	background: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	line-height: inherit;
+	vertical-align: baseline;
+}
+
+/* Remove default browser styling for all input types */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='url'],
+input[type='search'],
+input[type='number'],
+input[type='date'],
+input[type='time'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='week'],
+input[type='color'],
+input[type='range'],
+input[type='file'],
+input[type='checkbox'],
+input[type='radio'],
+input[type='button'],
+input[type='submit'],
+input[type='reset'],
+input[type='image'],
+textarea,
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	line-height: inherit;
+}
+
+/* Remove focus outline for browsers that add them */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default button styling */
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+}
+
+/* Remove default styling from select dropdown */
+select {
+	background-image: none;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Remove default styling from textarea */
+textarea {
+	resize: none;
+	overflow: auto;
+	background: transparent;
+	border: none;
+	outline: none;
+}
+
+/* Remove default styling from checkbox and radio */
+input[type='checkbox'],
+input[type='radio'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+/* Remove default styling from file input */
+input[type='file'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Remove default styling from range input */
+input[type='range'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Remove default styling from color input */
+input[type='color'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0;
+	width: auto;
+	height: auto;
+}
+
+/* Remove default styling from date/time inputs */
+input[type='date'],
+input[type='time'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='week'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Remove default styling from number input spinner */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+/* Remove default styling from search input */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+	-webkit-appearance: none;
+}
+
+/* Remove default styling from submit/reset buttons */
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+}
+
+/* Remove default styling from image input */
+input[type='image'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Remove default fieldset styling */
+fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+legend {
+	padding: 0;
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+/* Remove default label styling */
+label {
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+}
+
+/* Ensure consistent box-sizing */
+input,
+textarea,
+select,
+button {
+	box-sizing: border-box;
+}
+
+/* Remove any default margins and paddings from form elements */
+form {
+	margin: 0;
+	padding: 0;
+}
+
+/* Remove default styling from optgroup and option */
+optgroup {
+	font-weight: inherit;
+}
+
+option {
+	background: inherit;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+/* Remove default styling from progress and meter */
+progress,
+meter {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	outline: none;
+}
+
+/* Remove default styling from datalist */
+datalist {
+	display: none;
+}
+
+/* Ensure consistent behavior across all browsers */
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus styles for all elements */
+*:focus {
+	outline: none;
+}

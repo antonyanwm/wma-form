@@ -1,0 +1,14 @@
+.checkbox-visual,
+.custom-checkbox-label {
+	display: flex;
+}
+
+.custom-checkbox {
+	position: relative;
+}
+
+.custom-checkbox input {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}

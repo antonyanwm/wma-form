@@ -1,0 +1,12 @@
+.wrap-input {
+	border: var(--border-size) solid var(--border-color);
+	border-radius: var(--border-radius);
+	padding: var(--padding-field-TB) var(--padding-field-LR);
+	background-color: var(--background-color);
+	color: var(--color-text);
+	font-size: var(--font-size);
+	font-weight: var(--font-weight);
+	font-family: var(--font-family);
+	line-height: var(--line-height);
+	text-align: var(--text-align);
+}
