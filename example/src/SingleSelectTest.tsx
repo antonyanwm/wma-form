@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelectExternalControl } from 'wma-form';
-import { SelectSearch, useSelectExternalControlSimple, useSelectStoreField } from 'wma-form';
+import { SelectSearch, useSelectStoreField } from 'wma-form';
 
 // Тест для одиночного выбора (не multiple)
 export function SingleSelectTest() {

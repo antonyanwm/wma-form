@@ -38,7 +38,6 @@ export type SelectSearchProps = {
 
 	// Кастомизация Clear All
 	hideClearButton?: boolean; // Скрыть встроенную кнопку Clear All
-	renderClearButton?: (props: { onClear: () => void; hasValue: boolean }) => React.ReactNode; // Кастомная кнопка Clear All
 
 	// Внешнее управление (удалено для упрощения API)
 };

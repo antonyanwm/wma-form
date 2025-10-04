@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Form, SelectSearch } from '../../index';
-import { Option, SelectSearchProps } from '../../components/SelectSearch/types';
+import { Form, SelectSearch } from '../../../index';
+import { Option, SelectSearchProps } from '../../../components/SelectSearch/types';
 import React from 'react';
-import { useSelectExternalControl } from '../../components/SelectSearch/hooks';
+import { useSelectExternalControl } from '../../../components/SelectSearch/hooks';
 
 type LocalArgs = SelectSearchProps & {
 	useAsync?: boolean;
@@ -151,6 +151,7 @@ import { SelectSearch, Form } from 'wma-form';
 		initialValue: '',
 		useAsync: false,
 		withValidation: false,
+		options: sampleOptions,
 	},
 };
 

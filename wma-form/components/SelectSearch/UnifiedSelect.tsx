@@ -42,7 +42,6 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 		allowBackspaceDelete = false,
 		hideSelectedFromDropdown = false,
 		hideClearButton = false,
-		renderClearButton,
 	} = props;
 
 	// reserved for localization if needed later
@@ -166,7 +165,7 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 	});
 
 	// Options management
-	const { allLoadedOptions, setAllLoadedOptions, filtered } = useSelectOptions({
+	const { allLoadedOptions, filtered } = useSelectOptions({
 		options,
 		loadedOptions,
 		query,
@@ -415,6 +414,7 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 					disabled={disabled}
 					readOnly={hideInput}
 					className={`control-input ${hideInput ? 'input-hidden' : ''}`}
+					autoComplete='off'
 				/>
 
 				{/* Кнопка Clear All */}
@@ -511,16 +511,6 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 
 			{/* Ошибка */}
 			{showError && safeField.error && <div className='error-message'>{safeField.error}</div>}
-
-			{/* Кастомная кнопка Clear All */}
-			{renderClearButton && ((multiple && currentValues.length > 0) || (!multiple && currentValue)) && (
-				<div className='custom-clear-button'>
-					{renderClearButton({
-						onClear: handleClearAll,
-						hasValue: multiple ? currentValues.length > 0 : !!currentValue,
-					})}
-				</div>
-			)}
 		</div>
 	);
 });

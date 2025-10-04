@@ -1,0 +1,1040 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import * as SelectSearchStories from './SelectSearch.stories';
+
+<Meta of={SelectSearchStories} />
+
+# SelectSearch - Универсальный компонент селекта с поиском
+
+## 🎯 Обзор
+
+`SelectSearch` - это мощный и гибкий React компонент для создания выпадающих списков с поиском. Предоставляет полный набор возможностей для работы с данными в современных веб-приложениях.
+
+### ✨ Ключевые возможности
+
+-   🔍 **Интеллектуальный поиск** - фильтрация с debounce и поддержкой асинхронной загрузки
+-   🎯 **Два режима выбора** - одиночный и множественный с настраиваемым поведением
+-   ⚡ **Асинхронная загрузка** - динамическая подгрузка с кэшированием и отменой запросов
+-   🎛️ **Внешнее управление** - полный программный контроль через API хуки
+-   📱 **Адаптивность** - корректная работа на всех устройствах
+-   🎨 **Кастомизация** - настраиваемые стили через CSS переменные
+-   ⌨️ **Доступность** - полная поддержка клавиатурной навигации и ARIA
+-   🏷️ **Умные теги** - автоматическое управление переполнением в множественном режиме
+
+## 📦 Установка и импорт
+
+```tsx
+import { SelectSearch, Form } from 'wma-form';
+import 'wma-form/dist/index.css';
+```
+
+## 🚀 Быстрый старт
+
+### Базовое использование
+
+```tsx
+import { SelectSearch, Form } from 'wma-form';
+
+const options = [
+	{ label: 'JavaScript', value: 'js' },
+	{ label: 'TypeScript', value: 'ts' },
+	{ label: 'Python', value: 'py' },
+];
+
+function App() {
+	return (
+		<Form
+			formId='my-form'
+			onValidSubmit={(data) => console.log(data)}>
+			<SelectSearch
+				formId='my-form'
+				name='language'
+				label='Выберите язык программирования'
+				options={options}
+				required={true}
+			/>
+		</Form>
+	);
+}
+```
+
+## 💡 Интерактивные примеры
+
+### Простой селект
+
+<Canvas of={SelectSearchStories.Basic} />
+
+### Внешнее управление
+
+<Canvas of={SelectSearchStories.ExternalControl} />
+
+## 📚 API Reference
+
+### Основные пропсы
+
+<table>
+	<thead>
+		<tr>
+			<th>Prop</th>
+			<th>Тип</th>
+			<th>По умолчанию</th>
+			<th>Описание</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>formId</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>-</td>
+			<td>
+				<strong>Обязательный.</strong> ID формы
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>name</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>-</td>
+			<td>
+				<strong>Обязательный.</strong> Имя поля
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>label</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>-</td>
+			<td>
+				<strong>Обязательный.</strong> Подпись поля
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>options</code>
+			</td>
+			<td>
+				<code>Option[]</code>
+			</td>
+			<td>-</td>
+			<td>Статические опции</td>
+		</tr>
+		<tr>
+			<td>
+				<code>loadOptions</code>
+			</td>
+			<td>
+				<code>(query: string) =&gt; Promise&lt;Option[]&gt;</code>
+			</td>
+			<td>-</td>
+			<td>Функция асинхронной загрузки</td>
+		</tr>
+		<tr>
+			<td>
+				<code>multiple</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Режим множественного выбора</td>
+		</tr>
+		<tr>
+			<td>
+				<code>placeholder</code>
+			</td>
+			<td>
+				<code>boolean | string</code>
+			</td>
+			<td>
+				<code>true</code>
+			</td>
+			<td>Плейсхолдер</td>
+		</tr>
+		<tr>
+			<td>
+				<code>required</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>true</code>
+			</td>
+			<td>Обязательное поле</td>
+		</tr>
+		<tr>
+			<td>
+				<code>disabled</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Отключенное состояние</td>
+		</tr>
+		<tr>
+			<td>
+				<code>className</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>
+				<code>''</code>
+			</td>
+			<td>Дополнительные CSS классы</td>
+		</tr>
+		<tr>
+			<td>
+				<code>validator</code>
+			</td>
+			<td>
+				<code>Function</code>
+			</td>
+			<td>-</td>
+			<td>Функция валидации</td>
+		</tr>
+		<tr>
+			<td>
+				<code>initialValue</code>
+			</td>
+			<td>
+				<code>string | string[]</code>
+			</td>
+			<td>
+				<code>''</code>
+			</td>
+			<td>Начальное значение</td>
+		</tr>
+		<tr>
+			<td>
+				<code>maxLength</code>
+			</td>
+			<td>
+				<code>number</code>
+			</td>
+			<td>-</td>
+			<td>Максимальная длина ввода</td>
+		</tr>
+		<tr>
+			<td>
+				<code>minLength</code>
+			</td>
+			<td>
+				<code>number</code>
+			</td>
+			<td>-</td>
+			<td>Минимальная длина ввода</td>
+		</tr>
+		<tr>
+			<td>
+				<code>visibleCount</code>
+			</td>
+			<td>
+				<code>number</code>
+			</td>
+			<td>
+				<code>Infinity</code>
+			</td>
+			<td>Количество видимых опций</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hideInput</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Скрыть поле ввода</td>
+		</tr>
+		<tr>
+			<td>
+				<code>debounceMs</code>
+			</td>
+			<td>
+				<code>number</code>
+			</td>
+			<td>
+				<code>250</code>
+			</td>
+			<td>Задержка поиска (мс)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hideErrorOnFocus</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>true</code>
+			</td>
+			<td>Скрывать ошибку при фокусе</td>
+		</tr>
+		<tr>
+			<td>
+				<code>icon</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>-</td>
+			<td>Иконка для поля</td>
+		</tr>
+		<tr>
+			<td>
+				<code>maxVisibleItems</code>
+			</td>
+			<td>
+				<code>number</code>
+			</td>
+			<td>
+				<code>3</code>
+			</td>
+			<td>Макс. видимых тегов (multiple)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>allowBackspaceDelete</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Удаление через Backspace</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hideSelectedFromDropdown</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Скрыть выбранные из дропдауна</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hideClearButton</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>false</code>
+			</td>
+			<td>Скрыть кнопку очистки</td>
+		</tr>
+	</tbody>
+</table>
+
+### Типы данных
+
+```tsx
+interface Option {
+	label: string; // Отображаемый текст
+	value: string | number; // Значение опции
+	[key: string]: any; // Дополнительные поля
+}
+
+interface SelectSearchProps {
+	// Обязательные пропсы
+	formId: string;
+	name: string;
+	label: string;
+
+	// Данные
+	options?: Option[];
+	loadOptions?: (input: string) => Promise<Option[]>;
+
+	// Поведение
+	multiple?: boolean;
+	placeholder?: boolean | string;
+	required?: boolean;
+	disabled?: boolean;
+
+	// Валидация
+	validator?: ({ value, name, opts }: { value: string; name?: string; opts?: any }) => string;
+	initialValue?: string | string[];
+	maxLength?: number;
+	minLength?: number;
+
+	// UI настройки
+	className?: string;
+	icon?: string;
+	visibleCount?: number;
+	hideInput?: boolean;
+	debounceMs?: number;
+	hideErrorOnFocus?: boolean;
+
+	// Множественный выбор
+	maxVisibleItems?: number;
+	allowBackspaceDelete?: boolean;
+	hideSelectedFromDropdown?: boolean;
+	hideClearButton?: boolean;
+}
+```
+
+## 🎣 Внешнее управление
+
+### useSelectExternalControl
+
+Основной хук для программного управления компонентом. Предоставляет полный набор методов для взаимодействия с SelectSearch извне.
+
+```tsx
+import { useSelectExternalControl } from 'wma-form';
+
+function MyComponent() {
+	const {
+		selectByValue,
+		clearAll,
+		openDropdown,
+		closeDropdown,
+		setSearchQuery,
+		getSelectedValues,
+		getSelectedCount,
+		hasSelectedValues,
+		getFieldState,
+		focusField,
+		blurField,
+		validateField,
+		markAsTouched,
+		selectMultiple,
+		removeOption,
+		getCurrentQuery,
+		isDropdownOpen,
+	} = useSelectExternalControl({
+		formId: 'my-form',
+		name: 'my-select',
+		multiple: false,
+		options: myOptions,
+	});
+
+	return (
+		<div>
+			<SelectSearch
+				formId='my-form'
+				name='my-select'
+				label='My Select'
+				options={myOptions}
+			/>
+			<button onClick={() => selectByValue('js')}>Выбрать JavaScript</button>
+			<button onClick={() => clearAll()}>Очистить все</button>
+		</div>
+	);
+}
+```
+
+### Методы хука
+
+#### Основные методы управления
+
+<table>
+	<thead>
+		<tr>
+			<th>Функция</th>
+			<th>Описание</th>
+			<th>Пример использования</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>selectByValue(value: string)</code>
+			</td>
+			<td>Выбирает опцию по значению</td>
+			<td>
+				<code>selectByValue('js')</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>clearAll()</code>
+			</td>
+			<td>Очищает все выбранные значения</td>
+			<td>
+				<code>clearAll()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>openDropdown()</code>
+			</td>
+			<td>Открывает дропдаун</td>
+			<td>
+				<code>openDropdown()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>closeDropdown()</code>
+			</td>
+			<td>Закрывает дропдаун</td>
+			<td>
+				<code>closeDropdown()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>setSearchQuery(query: string)</code>
+			</td>
+			<td>Устанавливает поисковый запрос</td>
+			<td>
+				<code>setSearchQuery('react')</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+#### Получение данных
+
+<table>
+	<thead>
+		<tr>
+			<th>Функция</th>
+			<th>Описание</th>
+			<th>Пример использования</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>getSelectedValues(): string[]</code>
+			</td>
+			<td>Возвращает массив выбранных значений</td>
+			<td>
+				<code>const values = getSelectedValues()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>getSelectedCount(): number</code>
+			</td>
+			<td>Возвращает количество выбранных элементов</td>
+			<td>
+				<code>const count = getSelectedCount()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hasSelectedValues(): boolean</code>
+			</td>
+			<td>Проверяет, есть ли выбранные значения</td>
+			<td>
+				<code>if (hasSelectedValues()) {/* ... */}</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>getFieldState(): FieldState</code>
+			</td>
+			<td>Возвращает полное состояние поля</td>
+			<td>
+				<code>const state = getFieldState()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>isOptionSelected(value: string): boolean</code>
+			</td>
+			<td>Проверяет, выбрана ли конкретная опция</td>
+			<td>
+				<code>if (isOptionSelected('js')) {/* ... */}</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+#### Управление фокусом и валидация
+
+<table>
+	<thead>
+		<tr>
+			<th>Функция</th>
+			<th>Описание</th>
+			<th>Пример использования</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>focusField()</code>
+			</td>
+			<td>Устанавливает фокус на поле</td>
+			<td>
+				<code>focusField()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>blurField()</code>
+			</td>
+			<td>Убирает фокус с поля</td>
+			<td>
+				<code>blurField()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>validateField(): string</code>
+			</td>
+			<td>Валидирует поле и возвращает ошибку</td>
+			<td>
+				<code>const error = validateField()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>markAsTouched()</code>
+			</td>
+			<td>Отмечает поле как "touched"</td>
+			<td>
+				<code>markAsTouched()</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+#### Дополнительные методы
+
+<table>
+	<thead>
+		<tr>
+			<th>Функция</th>
+			<th>Описание</th>
+			<th>Пример использования</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>selectMultiple(values: string[])</code>
+			</td>
+			<td>Выбирает несколько опций</td>
+			<td>
+				<code>selectMultiple(['js', 'ts'])</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>removeOption(value: string)</code>
+			</td>
+			<td>Удаляет конкретную опцию</td>
+			<td>
+				<code>removeOption('js')</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>getCurrentQuery(): string</code>
+			</td>
+			<td>Возвращает текущий поисковый запрос</td>
+			<td>
+				<code>const query = getCurrentQuery()</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>isDropdownOpen(): boolean</code>
+			</td>
+			<td>Проверяет, открыт ли дропдаун</td>
+			<td>
+				<code>if (isDropdownOpen()) {/* ... */}</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## 🔄 Асинхронная загрузка данных
+
+### Базовый пример
+
+```tsx
+const loadOptions = async (query: string) => {
+	const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+	const data = await response.json();
+	return data.map((item) => ({
+		label: item.name,
+		value: item.id,
+	}));
+};
+
+<SelectSearch
+	formId='form'
+	name='users'
+	label='Поиск пользователей'
+	loadOptions={loadOptions}
+	debounceMs={300}
+	visibleCount={10}
+/>;
+```
+
+### Продвинутые возможности
+
+#### Отмена предыдущих запросов
+
+```tsx
+let currentController: AbortController | null = null;
+
+const loadOptions = async (query: string) => {
+	if (currentController) {
+		currentController.abort();
+	}
+
+	currentController = new AbortController();
+
+	try {
+		const response = await fetch(`/api/search?q=${query}`, {
+			signal: currentController.signal,
+		});
+		return await response.json();
+	} catch (error) {
+		if (error.name === 'AbortError') return [];
+		throw error;
+	}
+};
+```
+
+#### Кэширование результатов
+
+```tsx
+const cache = new Map();
+
+const loadOptions = async (query: string) => {
+	if (cache.has(query)) {
+		return cache.get(query);
+	}
+
+	const response = await fetch(`/api/search?q=${query}`);
+	const data = await response.json();
+
+	cache.set(query, data);
+	return data;
+};
+```
+
+#### Поиск с фильтрами и пагинацией
+
+```tsx
+const loadOptions = async (query: string) => {
+	const response = await fetch('/api/complex-search', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			query,
+			filters: { active: true, category: 'users' },
+			limit: 50,
+		}),
+	});
+
+	const data = await response.json();
+	return data.results.map((user) => ({
+		label: `${user.firstName} ${user.lastName}`,
+		value: user.id,
+		email: user.email,
+		department: user.department,
+	}));
+};
+```
+
+## 🎨 Стилизация
+
+### CSS переменные
+
+```css
+:root {
+	/* Цвета дропдауна */
+	--background-color-select-search-dropdown: #ffffff;
+	--border-color-select-search-dropdown: #e0e0e0;
+	--color-select-search-dropdown-option: #333333;
+	--color-select-search-dropdown-option-selected: #1976d2;
+
+	/* Цвета тегов */
+	--background-color-select-search-dropdown-tag: #1976d2;
+	--color-select-search-dropdown-tag: #ffffff;
+
+	/* Размеры и отступы */
+	--font-size-option: 14px;
+	--font-size-tag: 14px;
+	--radius-select-search-dropdown: 8px;
+}
+```
+
+### Кастомные стили
+
+```css
+/* Кастомный дропдаун */
+.my-custom-select .dropdown {
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	border: 2px solid #e3f2fd;
+}
+
+/* Градиентные теги */
+.my-custom-select .selected-tag {
+	background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+	color: white;
+	border: none;
+}
+
+/* Анимированные опции */
+.my-custom-select .dropdown-option {
+	transition: all 0.2s ease;
+}
+
+.my-custom-select .dropdown-option:hover {
+	background-color: #f0f8ff;
+	transform: translateX(4px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+```
+
+## 🏷️ Умные теги и переполнение
+
+Компонент автоматически управляет отображением тегов в множественном режиме:
+
+```tsx
+<SelectSearch
+	formId='form'
+	name='skills'
+	label='Навыки'
+	options={skills}
+	multiple={true}
+	maxVisibleItems={3} // Максимум видимых тегов
+	// Автоматически покажет "+2 more" если не помещается
+/>
+```
+
+### Автоматическая адаптация
+
+-   При изменении размера окна
+-   При добавлении/удалении тегов
+-   При изменении длины текста тегов
+
+## 🎯 Позиционирование дропдауна
+
+### Умное позиционирование
+
+Дропдаун автоматически:
+
+-   Открывается вниз или вверх в зависимости от доступного места
+-   Корректирует позицию при скролле
+-   Адаптируется к изменению размера окна
+-   Не выходит за границы viewport
+
+## ⌨️ Клавиатурная навигация
+
+### Поддерживаемые клавиши
+
+-   **Arrow Down/Up** - навигация по опциям
+-   **Enter** - выбор активной опции
+-   **Escape** - закрытие дропдауна
+-   **Tab** - переход к следующему элементу
+-   **Backspace** - удаление последнего выбранного элемента (в множественном режиме)
+
+### Автоскролл
+
+При навигации клавиатурой активная опция автоматически прокручивается в видимую область.
+
+## 💡 Практические примеры
+
+### Селект с валидацией
+
+```tsx
+<SelectSearch
+	formId='form'
+	name='description'
+	label='Описание'
+	options={descriptions}
+	validator={({ value }) => {
+		if (value.length < 10) return 'Минимум 10 символов';
+		return '';
+	}}
+/>
+```
+
+## ⚡ Производительность
+
+### Оптимизация больших списков
+
+```tsx
+// Ограничение отображаемых опций
+<SelectSearch
+	loadOptions={loadLargeDataset}
+	visibleCount={50}
+	debounceMs={300}
+/>;
+
+// Мемоизация опций
+const memoizedOptions = useMemo(
+	() =>
+		largeDataset.map((item) => ({
+			label: item.name,
+			value: item.id,
+		})),
+	[largeDataset]
+);
+```
+
+## 🏆 Лучшие практики
+
+### Производительность
+
+```tsx
+// ✅ Мемоизация опций
+const memoizedOptions = useMemo(
+	() =>
+		users.map((user) => ({
+			label: user.name,
+			value: user.id,
+		})),
+	[users]
+);
+
+// ✅ Оптимальная задержка для debounce
+<SelectSearch
+	loadOptions={searchUsers}
+	debounceMs={300}
+/>;
+```
+
+### UX
+
+```tsx
+// ✅ Понятные плейсхолдеры
+<SelectSearch
+	placeholder="Начните вводить название города..."
+	multiple={false}
+/>
+
+// ✅ Скрытие выбранных в множественном выборе
+<SelectSearch
+	multiple={true}
+	hideSelectedFromDropdown={true}
+	maxVisibleItems={3}
+/>
+```
+
+## 🔍 Отладка
+
+### Отслеживание состояния
+
+```tsx
+const { getFieldState, getSelectedValues } = useSelectExternalControl({
+	formId: 'form',
+	name: 'select',
+	options: myOptions,
+});
+
+// Отслеживание изменений
+useEffect(() => {
+	console.log('Field state:', getFieldState());
+	console.log('Selected values:', getSelectedValues());
+}, [getFieldState, getSelectedValues]);
+```
+
+## 🐛 Troubleshooting
+
+### Частые проблемы
+
+#### Дропдаун не открывается
+
+```tsx
+// ❌ Проблема: Не указан formId
+<SelectSearch name="select" label="Select" />
+
+// ✅ Решение: Указать formId
+<SelectSearch formId="my-form" name="select" label="Select" />
+```
+
+#### Асинхронная загрузка не работает
+
+```tsx
+// ❌ Проблема: Неправильная сигнатура
+const loadOptions = (query) => {
+	return fetch(`/api/search?q=${query}`); // Возвращает Promise<Response>
+};
+
+// ✅ Решение: Правильная сигнатура
+const loadOptions = async (query: string) => {
+	const response = await fetch(`/api/search?q=${query}`);
+	const data = await response.json();
+	return data.map((item) => ({
+		label: item.name,
+		value: item.id,
+	}));
+};
+```
+
+## 📝 Changelog
+
+### v1.0.0
+
+-   **Основной функционал:**
+
+    -   Поддержка одиночного и множественного выбора
+    -   Интеллектуальный поиск с debounce
+    -   Асинхронная загрузка данных с кэшированием
+    -   Внешнее управление через хуки
+    -   Валидация с кастомными правилами
+    -   Поддержка начальных значений
+
+-   **UI/UX возможности:**
+
+    -   Умные теги с автоматическим overflow
+    -   Динамическое позиционирование дропдауна
+    -   Автоматическая адаптация к размеру экрана
+    -   Кастомизируемые стили через CSS переменные
+    -   Поддержка иконок и кастомных классов
+
+-   **Доступность (a11y):**
+
+    -   Полная клавиатурная навигация
+    -   ARIA атрибуты и семантическая разметка
+    -   Автоскролл к активной опции
+    -   Поддержка скрин-ридеров
+
+-   **Производительность:**
+
+    -   Оптимизированный рендеринг
+    -   Дедупликация опций
+    -   Отмена предыдущих запросов
+    -   Мемоизация и кэширование
+
+-   **Продвинутые возможности:**
+    -   Управление переполнением тегов
+    -   Обработка скролла и resize событий
+    -   Временные элементы для измерения
+    -   Глобальное управление дропдаунами
+
+## 🤝 Поддержка
+
+Если у вас есть вопросы или проблемы:
+
+1. Проверьте раздел Troubleshooting
+2. Изучите примеры в Stories
+3. Создайте issue в репозитории
+
+## 📄 Лицензия
+
+MIT License

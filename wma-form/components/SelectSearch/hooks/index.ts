@@ -10,4 +10,3 @@ export { useTagsOverflow } from './useTagsOverflow';
 export { useSelectOptions } from './useSelectOptions';
 export { useSelectAccessibility } from './useSelectAccessibility';
 export { useSelectExternalControl } from './useSelectExternalControl';
-export { useSelectExternalControlSimple } from './useSelectExternalControlSimple';

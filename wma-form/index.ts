@@ -11,7 +11,6 @@ export { default as SelectSearch } from './components/SelectSearch/UnifiedSelect
 // Hooks
 export { useFormStatus } from './hooks/useFormStatus';
 export { useFormStore } from './store/formsStore';
-export { useSelectExternalControlSimple } from './components/SelectSearch/hooks/useSelectExternalControlSimple';
 export { useSelectExternalControl } from './components/SelectSearch/hooks/useSelectExternalControl';
 export { useSelectStoreField } from './components/SelectSearch/hooks/useSelectStoreField';
 
