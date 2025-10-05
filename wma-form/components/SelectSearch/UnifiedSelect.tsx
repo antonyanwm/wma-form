@@ -14,7 +14,6 @@ import {
 	useSelectOptions,
 	useSelectAccessibility,
 } from './hooks';
-import { Icon } from 'wma-component';
 import './style.css';
 import { createEventHandlers } from './utils/eventHandlers';
 import { getPlaceholderText, SELECT_TEXTS } from './constants/texts';
@@ -36,7 +35,11 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 		hideInput = false,
 		debounceMs = 250,
 		hideErrorOnFocus = true,
-		icon,
+		maxLength,
+		minLength,
+		prefix,
+		suffix,
+		showDefaultSuffix = true,
 		multiple = false,
 		maxVisibleItems = 3,
 		allowBackspaceDelete = false,
@@ -395,6 +398,9 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 				onClick={eventHandlers.handleBoxClick}
 				onKeyDown={hideInput ? eventHandlers.onKeyDown : undefined}
 				tabIndex={hideInput ? 0 : -1}>
+				{/* Prefix иконка */}
+				{prefix && <div className='prefix-icon'>{prefix}</div>}
+
 				{/* Выбранные элементы (только для multiple) */}
 				{renderSelectedItems()}
 
@@ -415,6 +421,8 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 					readOnly={hideInput}
 					className={`control-input ${hideInput ? 'input-hidden' : ''}`}
 					autoComplete='off'
+					maxLength={maxLength}
+					minLength={minLength}
 				/>
 
 				{/* Кнопка Clear All */}
@@ -431,13 +439,12 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 					</button>
 				)}
 
-				{/* Иконка */}
-				{icon && (
-					<Icon
-						name={icon}
-						onClick={(e) => e.stopPropagation()}
-					/>
-				)}
+				{/* Suffix иконка или дефолтная стрелка */}
+				{suffix !== null && suffix !== undefined ? (
+					<div className='suffix-icon'>{suffix}</div>
+				) : showDefaultSuffix ? (
+					<div className={`suffix-icon default-arrow ${dropdownManager.open ? 'rotated' : ''}`}>▼</div>
+				) : null}
 			</div>
 
 			{/* Дропдаун */}

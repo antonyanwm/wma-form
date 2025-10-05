@@ -126,7 +126,9 @@ const loadOptions = async (query: string) => {
 | `hideInput`                | `boolean`                              | `false`      | Скрыть поле ввода              |
 | `debounceMs`               | `number`                               | `250`        | Задержка поиска (мс)           |
 | `hideErrorOnFocus`         | `boolean`                              | `true`       | Скрывать ошибку при фокусе     |
-| `icon`                     | `string`                               | -            | Иконка для поля                |
+| `prefix`                   | `React.ReactNode`                      | -            | Компонент перед полем ввода    |
+| `suffix`                   | `React.ReactNode`                      | -            | Компонент после поля ввода     |
+| `showDefaultSuffix`        | `boolean`                              | `true`       | Показывать дефолтную стрелку   |
 | `maxVisibleItems`          | `number`                               | `3`          | Макс. видимых тегов (multiple) |
 | `allowBackspaceDelete`     | `boolean`                              | `false`      | Удаление через Backspace       |
 | `hideSelectedFromDropdown` | `boolean`                              | `false`      | Скрыть выбранные из дропдауна  |
@@ -215,7 +217,41 @@ const validator = ({ value }) => {
 />
 ```
 
-### 3. Асинхронный поиск с кэшированием
+### 3. Селект с prefix и suffix иконками
+
+```tsx
+<SelectSearch
+	formId='form'
+	name='search'
+	label='Поиск пользователей'
+	options={users}
+	prefix={<Icon name="search" />}
+	suffix={<Icon name="arrow-down" />}
+	placeholder='Начните вводить...'
+/>
+
+// Или с эмодзи
+<SelectSearch
+	formId='form'
+	name='category'
+	label='Категория'
+	options={categories}
+	prefix="🔍"
+	suffix="▼"
+	showDefaultSuffix={true} // Дефолтная стрелка с ротацией
+/>
+
+// Без иконок
+<SelectSearch
+	formId='form'
+	name='simple'
+	label='Простой селект'
+	options={options}
+	showDefaultSuffix={false} // Никаких иконок справа
+/>
+```
+
+### 4. Асинхронный поиск с кэшированием
 
 ```tsx
 const searchUsers = async (query: string) => {

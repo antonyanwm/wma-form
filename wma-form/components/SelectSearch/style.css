@@ -180,6 +180,37 @@
 	background: transparent;
 }
 
+.prefix-icon,
+.suffix-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	cursor: pointer;
+	transition: opacity var(--transition-select-search-dropdown);
+}
+
+.prefix-icon {
+	margin-right: 4px;
+}
+
+.suffix-icon {
+	margin-left: 4px;
+}
+
+.prefix-icon:hover,
+.suffix-icon:hover {
+	opacity: 0.7;
+}
+
+.default-arrow {
+	transition: transform var(--transition-select-search-dropdown);
+}
+
+.default-arrow.rotated {
+	transform: rotate(180deg);
+}
+
 .control {
 	display: flex;
 	flex-wrap: nowrap;

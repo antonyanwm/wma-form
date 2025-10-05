@@ -28,7 +28,9 @@ export type SelectSearchProps = {
 	debounceMs?: number;
 
 	hideErrorOnFocus?: boolean;
-	icon?: string;
+	prefix?: React.ReactNode;
+	suffix?: React.ReactNode;
+	showDefaultSuffix?: boolean;
 
 	// Новые пропсы для объединенного компонента
 	multiple?: boolean; // Режим множественного выбора

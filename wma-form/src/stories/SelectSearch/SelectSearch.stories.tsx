@@ -7,6 +7,67 @@ import { useSelectExternalControl } from '../../../components/SelectSearch/hooks
 type LocalArgs = SelectSearchProps & {
 	useAsync?: boolean;
 	withValidation?: boolean;
+	prefix?: string;
+	suffix?: string;
+	customPrefix?: string;
+	customSuffix?: string;
+	showDefaultSuffix?: boolean;
+};
+
+// Функция для создания иконок из строковых значений
+const createIcon = (iconType: string, customValue?: string, color: string = '#666') => {
+	if (iconType === 'none') return null;
+	if (iconType === 'custom') {
+		if (!customValue || customValue.trim() === '') return null;
+		return (
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					width: 20,
+					height: 20,
+					color: color,
+					fontSize: 16,
+				}}>
+				{customValue}
+			</div>
+		);
+	}
+
+	const iconMap: Record<string, string> = {
+		search: '🔍',
+		user: '👤',
+		star: '⭐',
+		heart: '❤️',
+		'arrow-down': '', // Возвращаем пустую строку для показа дефолтной стрелки с ротацией
+		plus: '+',
+		check: '✓',
+		close: '✕',
+	};
+
+	const icon = iconMap[iconType];
+
+	// Если icon === null, возвращаем null (для дефолтной стрелки)
+	if (icon === null) return null;
+
+	// Если icon не найден в map, используем iconType как есть
+	const displayIcon = icon || iconType;
+
+	return (
+		<div
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				width: 20,
+				height: 20,
+				color: color,
+				fontSize: 16,
+			}}>
+			{displayIcon}
+		</div>
+	);
 };
 
 // Образцы данных для демонстрации
@@ -117,9 +178,39 @@ import { SelectSearch, Form } from 'wma-form';
 			control: { type: 'number', min: 0, max: 1000 },
 			description: 'Задержка для поиска (мс)',
 		},
-		icon: {
-			control: 'text',
-			description: 'Иконка для поля',
+		prefix: {
+			control: 'select',
+			options: ['', '🔍', '👤', '⭐', '❤️', '🎯', '🚀', '💻', '📱', '🔧'],
+			description: 'Иконка перед полем ввода',
+		},
+		suffix: {
+			control: 'select',
+			options: ['', 'arrow-down', '+', '✓', '✕', '🚀', '⭐', '💻', '📱', '🔧'],
+			description: 'Иконка после поля ввода',
+		},
+		showDefaultSuffix: {
+			control: 'boolean',
+			description: 'Показывать дефолтную стрелку (если suffix не передан)',
+		},
+		loadOptions: {
+			control: { type: 'text', disabled: true },
+			description: 'Функция асинхронной загрузки опций',
+		},
+		validator: {
+			control: { type: 'text', disabled: true },
+			description: 'Функция валидации поля',
+		},
+		maxLength: {
+			control: 'number',
+			description: 'Максимальная длина введенного текста',
+		},
+		minLength: {
+			control: 'number',
+			description: 'Минимальная длина введенного текста',
+		},
+		hideErrorOnFocus: {
+			control: 'boolean',
+			description: 'Скрывать ошибку при фокусе',
 		},
 		initialValue: {
 			control: 'text',
@@ -147,7 +238,14 @@ import { SelectSearch, Form } from 'wma-form';
 		maxVisibleItems: 5,
 		visibleCount: 8,
 		debounceMs: 250,
-		icon: '🔍',
+		prefix: '🔍',
+		suffix: 'arrow-down',
+		showDefaultSuffix: true,
+		loadOptions: undefined,
+		validator: undefined,
+		maxLength: undefined,
+		minLength: undefined,
+		hideErrorOnFocus: true,
 		initialValue: '',
 		useAsync: false,
 		withValidation: false,
@@ -201,7 +299,12 @@ export const Basic: Story = {
 						maxVisibleItems={args.maxVisibleItems as number}
 						visibleCount={args.visibleCount as number}
 						debounceMs={args.debounceMs as number}
-						icon={args.icon as string | undefined}
+						maxLength={args.maxLength as number}
+						minLength={args.minLength as number}
+						hideErrorOnFocus={!!args.hideErrorOnFocus}
+						prefix={args.prefix || null}
+						suffix={args.suffix === 'arrow-down' ? null : args.suffix || null}
+						showDefaultSuffix={!!args.showDefaultSuffix}
 						validator={validator as unknown as SelectSearchProps['validator']}
 						initialValue={args.initialValue as string | string[]}
 					/>
@@ -240,7 +343,14 @@ export const Basic: Story = {
 		maxVisibleItems: 5,
 		visibleCount: 8,
 		debounceMs: 250,
-		icon: '🔍',
+		prefix: '🔍',
+		suffix: 'arrow-down',
+		showDefaultSuffix: true,
+		loadOptions: undefined,
+		validator: undefined,
+		maxLength: undefined,
+		minLength: undefined,
+		hideErrorOnFocus: true,
 		initialValue: '',
 		useAsync: false,
 		withValidation: false,
@@ -355,7 +465,20 @@ export const ExternalControl: Story = {
 							multiple={!!args.multiple}
 							required={!!args.required}
 							disabled={!!args.disabled}
+							hideInput={!!args.hideInput}
 							hideClearButton={!!args.hideClearButton}
+							hideSelectedFromDropdown={!!args.hideSelectedFromDropdown}
+							allowBackspaceDelete={!!args.allowBackspaceDelete}
+							maxVisibleItems={args.maxVisibleItems as number}
+							visibleCount={args.visibleCount as number}
+							debounceMs={args.debounceMs as number}
+							maxLength={args.maxLength as number}
+							minLength={args.minLength as number}
+							hideErrorOnFocus={!!args.hideErrorOnFocus}
+							prefix={args.prefix === 'custom' ? args.customPrefix : args.prefix === 'none' ? null : args.prefix}
+							suffix={args.suffix === 'custom' ? args.customSuffix : args.suffix === 'none' ? null : args.suffix === 'arrow-down' ? null : args.suffix}
+							showDefaultSuffix={!!args.showDefaultSuffix}
+							initialValue={args.initialValue as string | string[]}
 						/>
 					</Form>
 				</div>
@@ -499,6 +622,28 @@ export const ExternalControl: Story = {
 	},
 	args: {
 		label: 'Выберите язык программирования',
+		placeholder: 'Начните вводить...',
 		multiple: false,
+		required: false,
+		disabled: false,
+		hideInput: false,
+		hideClearButton: false,
+		hideSelectedFromDropdown: false,
+		allowBackspaceDelete: true,
+		maxVisibleItems: 5,
+		visibleCount: 8,
+		debounceMs: 250,
+		prefix: '🔍',
+		suffix: 'arrow-down',
+		showDefaultSuffix: true,
+		loadOptions: undefined,
+		validator: undefined,
+		maxLength: undefined,
+		minLength: undefined,
+		hideErrorOnFocus: true,
+		initialValue: '',
+		useAsync: false,
+		withValidation: false,
+		options: sampleOptions,
 	},
 };

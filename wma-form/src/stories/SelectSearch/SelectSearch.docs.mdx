@@ -88,6 +88,11 @@ interface SelectSearchProps {
 	required?: boolean; // Обязательное поле
 	disabled?: boolean; // Отключенное состояние
 
+	// Иконки
+	prefix?: React.ReactNode; // Компонент перед полем ввода
+	suffix?: React.ReactNode; // Компонент после поля ввода
+	showDefaultSuffix?: boolean; // Показывать дефолтную стрелку
+
 	// Валидация
 	validator?: ({ value, name, opts }: { value: string; name?: string; opts?: any }) => string;
 
@@ -116,7 +121,41 @@ interface SelectSearchProps {
 
 <Canvas of={SelectSearchStories.Basic} />
 
-### 2. Внешнее управление
+### 2. С prefix и suffix иконками
+
+```tsx
+// С React компонентами
+<SelectSearch
+	formId='form'
+	name='search'
+	label='Поиск пользователей'
+	options={users}
+	prefix={<Icon name="search" />}
+	suffix={<Icon name="arrow-down" />}
+/>
+
+// С эмодзи
+<SelectSearch
+	formId='form'
+	name='category'
+	label='Категория'
+	options={categories}
+	prefix="🔍"
+	suffix="🚀"
+	showDefaultSuffix={true} // Дефолтная стрелка с ротацией
+/>
+
+// Без иконок
+<SelectSearch
+	formId='form'
+	name='simple'
+	label='Простой селект'
+	options={options}
+	showDefaultSuffix={false} // Никаких иконок справа
+/>
+```
+
+### 3. Внешнее управление
 
 <Canvas of={SelectSearchStories.ExternalControl} />
 

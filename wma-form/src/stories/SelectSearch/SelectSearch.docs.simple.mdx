@@ -63,6 +63,40 @@ function App() {
 
 <Canvas of={SelectSearchStories.Basic} />
 
+### С prefix и suffix иконками
+
+```tsx
+// С React компонентами
+<SelectSearch
+	formId='form'
+	name='search'
+	label='Поиск пользователей'
+	options={users}
+	prefix={<Icon name="search" />}
+	suffix={<Icon name="arrow-down" />}
+/>
+
+// С эмодзи
+<SelectSearch
+	formId='form'
+	name='category'
+	label='Категория'
+	options={categories}
+	prefix="🔍"
+	suffix="🚀"
+	showDefaultSuffix={true} // Дефолтная стрелка с ротацией
+/>
+
+// Без иконок
+<SelectSearch
+	formId='form'
+	name='simple'
+	label='Простой селект'
+	options={options}
+	showDefaultSuffix={false} // Никаких иконок справа
+/>
+```
+
 ### Внешнее управление
 
 <Canvas of={SelectSearchStories.ExternalControl} />
@@ -289,13 +323,35 @@ function App() {
 		</tr>
 		<tr>
 			<td>
-				<code>icon</code>
+				<code>prefix</code>
 			</td>
 			<td>
-				<code>string</code>
+				<code>React.ReactNode</code>
 			</td>
 			<td>-</td>
-			<td>Иконка для поля</td>
+			<td>Компонент перед полем ввода</td>
+		</tr>
+		<tr>
+			<td>
+				<code>suffix</code>
+			</td>
+			<td>
+				<code>React.ReactNode</code>
+			</td>
+			<td>-</td>
+			<td>Компонент после поля ввода</td>
+		</tr>
+		<tr>
+			<td>
+				<code>showDefaultSuffix</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>
+				<code>true</code>
+			</td>
+			<td>Показывать дефолтную стрелку</td>
 		</tr>
 		<tr>
 			<td>
@@ -381,11 +437,15 @@ interface SelectSearchProps {
 
 	// UI настройки
 	className?: string;
-	icon?: string;
 	visibleCount?: number;
 	hideInput?: boolean;
 	debounceMs?: number;
 	hideErrorOnFocus?: boolean;
+
+	// Иконки
+	prefix?: React.ReactNode;
+	suffix?: React.ReactNode;
+	showDefaultSuffix?: boolean;
 
 	// Множественный выбор
 	maxVisibleItems?: number;
