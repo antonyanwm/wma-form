@@ -367,7 +367,7 @@ const UnifiedSelect = React.forwardRef<HTMLInputElement, SelectSearchProps>((pro
 											e.preventDefault();
 											e.stopPropagation();
 										}}>
-										×
+										🞪
 									</span>
 								</span>
 							);
