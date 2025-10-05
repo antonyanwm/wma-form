@@ -307,6 +307,7 @@ export const Basic: Story = {
 						showDefaultSuffix={!!args.showDefaultSuffix}
 						validator={validator as unknown as SelectSearchProps['validator']}
 						initialValue={args.initialValue as string | string[]}
+						showTagLine={!!args.showTagLine}
 					/>
 				</Form>
 
@@ -479,6 +480,7 @@ export const ExternalControl: Story = {
 							suffix={args.suffix === 'custom' ? args.customSuffix : args.suffix === 'none' ? null : args.suffix === 'arrow-down' ? null : args.suffix}
 							showDefaultSuffix={!!args.showDefaultSuffix}
 							initialValue={args.initialValue as string | string[]}
+							showTagLine={!!args.showTagLine}
 						/>
 					</Form>
 				</div>

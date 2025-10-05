@@ -8,19 +8,20 @@ interface UseTagsOverflowOptions {
 	allLoadedOptions: Option[];
 	maxVisibleItems: number;
 	multiple: boolean;
+	showTagLine: boolean;
 }
 
 /**
  * Хук для управления переполнением тегов в мультиселекте
  * Включает динамическое изменение количества видимых элементов
  */
-export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxVisibleItems, multiple }: UseTagsOverflowOptions) {
+export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxVisibleItems, multiple, showTagLine }: UseTagsOverflowOptions) {
 	const [dynamicMaxVisibleItems, setDynamicMaxVisibleItems] = React.useState(maxVisibleItems);
 
 	// Функция для проверки переполнения тегов
 	const checkTagsOverflowCallback = React.useCallback(() => {
-		checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems);
-	}, [rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems]);
+		checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems, showTagLine);
+	}, [rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, showTagLine]);
 
 	// Проверяем переполнение тегов при изменении выбранных элементов
 	React.useEffect(() => {
@@ -29,7 +30,7 @@ export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxV
 		let rafId: number | null = null;
 		const run = () => {
 			rafId = requestAnimationFrame(() => {
-				checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems);
+				checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems, showTagLine);
 			});
 		};
 
@@ -42,7 +43,7 @@ export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxV
 		return () => {
 			if (rafId) cancelAnimationFrame(rafId);
 		};
-	}, [multiple, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, rootRef]);
+	}, [multiple, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, rootRef, showTagLine]);
 
 	// Дополнительная проверка при изменении размера окна
 	React.useEffect(() => {
@@ -56,10 +57,11 @@ export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxV
 			resizeRaf = requestAnimationFrame(() => {
 				const el = rootRef.current?.querySelector('.control') as HTMLElement | null;
 				const width = el ? el.getBoundingClientRect().width : 0;
+
 				if (width && Math.abs(width - lastWidth) < 2) return; // игнорируем микроколебания
 				lastWidth = width;
 				if (currentValues.length > 0) {
-					checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems);
+					checkTagsOverflow(rootRef, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, setDynamicMaxVisibleItems, showTagLine);
 				}
 			});
 		};
@@ -69,7 +71,7 @@ export function useTagsOverflow({ rootRef, currentValues, allLoadedOptions, maxV
 			window.removeEventListener('resize', handleResize);
 			if (resizeRaf) cancelAnimationFrame(resizeRaf);
 		};
-	}, [multiple, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, rootRef]);
+	}, [multiple, currentValues, allLoadedOptions, maxVisibleItems, dynamicMaxVisibleItems, rootRef, showTagLine]);
 
 	return {
 		dynamicMaxVisibleItems,

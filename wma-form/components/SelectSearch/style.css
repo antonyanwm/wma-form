@@ -62,6 +62,9 @@
 	--padding-select-search-small: 4px 8px;
 	--padding-select-search-middle: 6px 12px;
 	--padding-select-search-large: 8px 16px;
+
+	/* Font family */
+	--font-family-select-search: monospace, sans-serif;
 }
 
 .list-wrapper {
@@ -126,8 +129,10 @@
 }
 
 .button-clear-all {
-	height: 100%;
-	margin: calc(var(--padding-field-TB) * -1) 0;
+	align-self: center;
+	display: flex;
+	cursor: pointer;
+	/* margin: calc(var(--padding-field-TB) * -1) 0; */
 }
 
 .selected-tag,
@@ -140,17 +145,27 @@
 	background-color: var(--background-color-select-search-dropdown-tag);
 	color: var(--color-select-search-dropdown-tag);
 	border-radius: var(--radius-select-search-dropdown-item-selected-tag);
-	margin: calc(var(--padding-field-TB) * -1) 0;
+	/* margin: calc(var(--padding-field-TB) * -1) 0; */
 	font-size: var(--font-size-tag);
 	transition: opacity var(--transition-select-search-dropdown), transform var(--transition-select-search-dropdown);
 	font-weight: 500;
+	white-space: nowrap;
+	font-family: var(--font-family-select-search);
+	height: fit-content;
 }
 
 .all-tag-wrapper {
 	display: flex;
+	align-items: center;
 	gap: 4px;
 	flex-wrap: wrap;
 	transition: all 0.2s ease-in-out;
+	margin: calc(var(--padding-field-TB) * -0.5) 0;
+
+	&.single-line {
+		flex-wrap: nowrap;
+		overflow: hidden;
+	}
 
 	.placeholder-tag {
 		background-color: var(--background-color-select-search-dropdown-tag-placeholder);
@@ -168,6 +183,7 @@
 		background-color: var(--background-color-select-search-dropdown-tag-remove);
 		transition: background-color var(--transition-select-search-dropdown);
 		margin-left: var(--padding-select-search-dropdown-tag-remove-margin);
+		font-family: var(--font-family-select-search);
 
 		&:hover {
 			background-color: var(--background-color-select-search-dropdown-tag-remove-hover);
@@ -204,7 +220,11 @@
 }
 
 .default-arrow {
+	height: fit-content;
 	transition: transform var(--transition-select-search-dropdown);
+	will-change: transform;
+	align-self: center;
+	display: flex;
 }
 
 .default-arrow.rotated {
@@ -214,7 +234,7 @@
 .control {
 	display: flex;
 	flex-wrap: nowrap;
-	align-items: center;
+	/* align-items: center; */
 	padding: var(--padding-field-TB) var(--padding-field-LR);
 	border: var(--border-size) solid var(--border-color);
 	border-radius: var(--border-radius);
@@ -224,14 +244,20 @@
 	cursor: text;
 
 	&.multiple {
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		overflow-y: auto;
 		max-height: 120px;
+
+		input {
+			min-width: 50px;
+			align-self: center;
+		}
 	}
 
 	&.single {
 		flex-wrap: nowrap;
 		overflow-y: visible;
+		align-items: center;
 	}
 
 	&.no-input {

@@ -37,6 +37,7 @@ export type SelectSearchProps = {
 	maxVisibleItems?: number; // Максимум видимых элементов в чипах (только для multiple)
 	allowBackspaceDelete?: boolean; // Разрешить удаление последнего элемента кнопкой Backspace (только для multiple)
 	hideSelectedFromDropdown?: boolean; // Скрывать выбранные элементы из дропдауна (только для multiple)
+	showTagLine?: boolean; // Показывать линию тегов
 
 	// Кастомизация Clear All
 	hideClearButton?: boolean; // Скрыть встроенную кнопку Clear All
